@@ -229,8 +229,8 @@ if selected=="Quantitative":
     st.markdown(text_style,unsafe_allow_html=True)
     if data is not None: 
         all_columns=n.columns                  
-        selected_num_cols =st.selectbox('Choose columns for Target Value:', all_columns)  
-        num_cols = st.selectbox("Select target column:", n.columns, index = len(n.columns) - 1) 
+        selected_num_cols =st.selectbox('Choose column on X axis:', all_columns)  
+        num_cols = st.selectbox("Choose column on Y axis:", n.columns, index = len(n.columns) - 1) 
         if st.button('Generate scatter plot'):   
             fig = px.scatter(df, x= selected_num_cols, y = num_cols)
             st.plotly_chart(fig)
