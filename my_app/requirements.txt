@@ -14,5 +14,5 @@ streamlit==1.12.2
 streamlit-folium ==0.6.15                   
 streamlit-option-menu ==0.3.2                                                         
 toml==0.10.2 
-PIL==8.0.1
+
    
