@@ -145,21 +145,20 @@ if data is not None:
         n, m = df.shape
         st.write(f'<p style="font-size:120%,color:Blue;">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True) 
         return 
-    c1, c2, c3 = st.columns([3, 0.5, 0.5])
-    c1.dataframe(functions.df_info(df))
+    
+    st.dataframe(functions.df_info(df))
 
 
     st.markdown('##### 🔍Null Value Information:')
     if df.isnull().sum().sum() == 0:
         st.write('There is not any NA value in your dataset.')
     else:
-        c1, c2, c3 = st.columns([4, 0.5, 0.5])
+        
         functions.space(2)
-        c1.dataframe(functions.df_isnull(df), width=1500)
+        st.dataframe(functions.df_isnull(df), width=1500)
     
     st.markdown('##### 📍Outlier Analysis')   
-    c1, c2, c3 = st.columns([4, 0.5, 0.5])
-    c1.dataframe(functions.number_of_outliers(df))    
+    st.dataframe(functions.number_of_outliers(df))    
 
 activities = ["Categorical","Numerical","Date","Boolean"]	
 with st.sidebar:
