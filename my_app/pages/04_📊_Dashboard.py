@@ -166,10 +166,16 @@ if data is not None:
     mask=df_m.notnull()
     df=df_m.where(mask).dropna()
     if st.checkbox('Mapbox'):
-        px.set_mapbox_access_token('pk.eyJ1IjoiY2hob3J2eXZvdW4xMyIsImEiOiJjbDgxNHMwb2QwNTNmM3RvNDZhNnJka2tvIn0.2lWRwiJ9t-YYHV4vFQ3cGw')
-        figMap = px.scatter_mapbox(df, lat='latitude', lon='longitude',color='color', size='bubble',
-									color_continuous_scale=px.colors.cyclical.IceFire)
-        st.plotly_chart(figMap, use_container_width=True)
+        if st.sidebar.checkbox('Add size bubble'):
+            px.set_mapbox_access_token('pk.eyJ1IjoiY2hob3J2eXZvdW4xMyIsImEiOiJjbDgxNHMwb2QwNTNmM3RvNDZhNnJka2tvIn0.2lWRwiJ9t-YYHV4vFQ3cGw')
+            figMap = px.scatter_mapbox(df, lat='latitude', lon='longitude',color='color', size='bubble',
+                                        color_continuous_scale=px.colors.cyclical.IceFire)
+            st.plotly_chart(figMap, use_container_width=True)
+        if st.sidebar.checkbox('No size bubble'):
+            px.set_mapbox_access_token('pk.eyJ1IjoiY2hob3J2eXZvdW4xMyIsImEiOiJjbDgxNHMwb2QwNTNmM3RvNDZhNnJka2tvIn0.2lWRwiJ9t-YYHV4vFQ3cGw')
+            figMap = px.scatter_mapbox(df, lat='latitude', lon='longitude',color='color',
+                                        color_continuous_scale=px.colors.cyclical.IceFire)
+            st.plotly_chart(figMap, use_container_width=True)
 	
 
 
