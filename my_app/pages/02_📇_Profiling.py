@@ -271,16 +271,7 @@ if selected=="Date":
         if st.checkbox('Full Columns'):
             f=pd.DataFrame(de[de["null_percentage"]==0]).T
             st.write(f.columns.tolist())
-        if st.checkbox('Unique Value'):
-            all_columns_names = d.columns.tolist()
-            selected_columns_names = st.selectbox("Select Column to show Year and Month Unique",all_columns_names)
-            d['YYYY']=d[selected_columns_names].dt.year
-            d['MM']=d[selected_columns_names].dt.month
-            
-            if st.checkbox('Year'):
-                st.write(d['YYYY'].unique())
-            if st.checkbox('Month'):
-                st.write(d['MM'].unique())
+       
 
 
 # Boolean Data
