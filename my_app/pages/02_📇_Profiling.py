@@ -12,7 +12,7 @@ from streamlit_option_menu import option_menu
 
 from functions import functions
 
-img=Image.open("logo.png")
+img=Image.open("my_app/logo.png")
 st.set_page_config(page_title="Z1App/EDA/DataProfiling", page_icon=img)
 
 df = px.data.iris()
