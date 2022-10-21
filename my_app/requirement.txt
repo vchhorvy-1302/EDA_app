@@ -1,0 +1,28 @@
+altair ==4.2.0                                       
+bokeh ==2.4.3                                                     
+entrypoint==1.1.0                                  
+folium == 0.13.0                       
+fonttools ==4.37.2                 
+gitdb ==4.0.9                   
+gitpython == 3.1.27                   
+google-auth == 2.12.0                                   
+importlib-metadata ==4.12.0                   
+importlib-resources==5.10.0                                     
+matplotlib ==3.6.0                                       
+numpy == 1.23.3                   
+openpyxl ==3.0.10                                 
+packaging ==21.3                     
+pandas ==1.4.4                    
+pandas-bokeh== 0.5.5                                      
+plotly==5.10.0                                      
+python ==3.9.13               
+pyyaml==6.0                     
+requests==2.28.1                                     
+seaborn==0.12.0                   
+setuptools==63.4.1                            
+streamlit==1.12.2                  
+streamlit-folium ==0.6.15                   
+streamlit-option-menu ==0.3.2                    
+tangled-up-in-unicode==0.2.0                                      
+toml==0.10.2                   
+   
