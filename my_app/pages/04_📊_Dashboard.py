@@ -92,12 +92,25 @@ if data is not None:
 	st.sidebar.markdown('### ☑️Select columns for plot map')
 	lat=st.sidebar.selectbox('Select latitude column',all_columns)
 	long=st.sidebar.selectbox('Select longitude column',all_columns)
-	df=pd.DataFrame({'lat':df[lat],'lon':df[long]})
-	mask=df.notnull()
-	df=df.where(mask).dropna()
+	df_m=pd.DataFrame({'lat':df[lat],'lon':df[long]})
+	mask=df_m.notnull()
+	df_m=df_m.where(mask).dropna()
 	if st.checkbox('Map'):
-		st.map(df)	
-		
+		st.map(df_m)	
+if data is not None:
+	st.sidebar.markdown('### ☑️Select columns for  mapbox')
+	lat_column=st.sidebar.selectbox('Select lat column',all_columns)
+	lon_column=st.sidebar.selectbox('Select lon column',all_columns)
+	colors=st.sidebar.selectbox('Select column for show color', all_columns)
+	bubble=st.sidebar.selectbox('Select column for size bubble', all_columns)
+	df_m=pd.DataFrame({'latitude':df[lat_column],'longitude':df[lon_column], 'color':df[colors],'bubble':df[bubble]})
+	mask=df_m.notnull()
+	df=df_m.where(mask).dropna()
+	if st.checkbox('Mapbox'):
+		px.set_mapbox_access_token('pk.eyJ1IjoiY2hob3J2eXZvdW4xMyIsImEiOiJjbDgxNHMwb2QwNTNmM3RvNDZhNnJka2tvIn0.2lWRwiJ9t-YYHV4vFQ3cGw')
+		figMap = px.scatter_mapbox(df, lat='latitude', lon='longitude',color='color', size='bubble',
+									color_continuous_scale=px.colors.cyclical.IceFire)
+		st.plotly_chart(figMap, use_container_width=True)
 	
 
 
