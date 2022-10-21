@@ -6,7 +6,7 @@ import streamlit as st
 from PIL import Image
 from streamlit_option_menu import option_menu
 
-img=Image.open("logo.png")
+img=Image.open("my_app/logo.png")
 st.set_page_config(page_title="Z1App/EDA/About_us",page_icon=img,layout="wide")
 
 
@@ -39,7 +39,7 @@ right: 2rem;
 #End Theme
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
-image = Image.open('logo.png')
+image = Image.open('my_app/logo.png')
 
 st.image(image, width=120)
 st.sidebar.markdown("Contents")
