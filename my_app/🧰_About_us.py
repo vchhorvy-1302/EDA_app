@@ -54,7 +54,7 @@ with col2:
     
 
 
-text_style = '<p style="font-family:sans-serif; color:Purple; font-size: 20px;">Drop your dataset here to understand your data more: 👇'
+text_style = '<p style="font-family:sans-serif; color:Purple; font-size: 20px;">Drop your dataset here to understand your data more:(csv is recommended, it is faster) 👇'
 st.markdown(text_style,  unsafe_allow_html=True)
 
 
