@@ -64,7 +64,7 @@ with st.expander(""):
 
 	use_defo = st.checkbox('Use example Dataset')
 	if use_defo:
-		data = 'scrap_data_sample.csv'
+		data = 'my_app/scrap_data_sample.csv'
 
 
 	if data:
