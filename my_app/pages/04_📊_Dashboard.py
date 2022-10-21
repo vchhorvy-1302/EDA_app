@@ -1,5 +1,4 @@
 import base64
-from lib2to3.pgen2.pgen import DFAState
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -14,7 +13,7 @@ from streamlit_option_menu import option_menu
 
 from functions import functions
 
-img=Image.open("logo.png")
+img=Image.open("my_app/logo.png")
 st.set_page_config(page_title ="Data Dashboard",page_icon = "Active",layout = "wide",
 )
 #Theme
