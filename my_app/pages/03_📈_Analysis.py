@@ -18,7 +18,7 @@ import seaborn as sns
 
 from functions import functions
 
-img=Image.open("logo.png")
+img=Image.open("my_app/logo.png")
 st.set_page_config(page_title="Z1App/EDA/DataAnalysis", page_icon=img)
 
 
