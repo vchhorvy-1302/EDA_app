@@ -182,113 +182,133 @@ if selected=="Quantitative":
     st.markdown("#### Quantitative Analysis")
     st.markdown("##### 1️⃣ Numerical Data")
 
-    
-#Univariate
-    st.markdown("##### 📌Univariate Analysis")
-    if data is not None:
-        n=pd.DataFrame(df.loc[:,(df.dtypes==np.int64) | (df.dtypes==np.float)])
-        all_columns_n = n.columns
-        type_of_plot = st.selectbox("Select Type of Plot",["box","hist"])
-        if type_of_plot=="box":
-            if len(all_columns_n) == 0:
-                st.write('There is no numerical columns in the data.')
-            else:
-                selected_num_cols = functions.multiselect_container('Choose columns for Box plots:', all_columns_n, 'Box')
-                st.markdown('Box plots')
-                i = 0
-                while (i < len(selected_num_cols)):
-                    c1, c2 = st.columns(2)
-                    for j in [c1, c2]:
-                        
-                        if (i >= len(selected_num_cols)):
-                            break
-                        
-                        fig = px.box(df, y= selected_num_cols[i])
-                        j.plotly_chart(fig, use_container_width = True)
-                        i += 1
-        if type_of_plot=="hist":
-            if len(all_columns_n) == 0:
-                st.write('There is no numerical columns in the data.')
-            else:
-                selected_num_cols = functions.multiselect_container('Choose columns for Hist plots:', all_columns_n, 'Hist')
-                st.markdown('Hist plots')
-                i = 0
-                while (i < len(selected_num_cols)):
-                    c1, c2 = st.columns(2)
-                    for j in [c1, c2]:
-                        
-                        if (i >= len(selected_num_cols)):
-                            break
-                        
-                        fig = px.histogram(df, x = selected_num_cols[i])
-                        j.plotly_chart(fig, use_container_width = True)
-                        i += 1
-# Bivariate
-    st.markdown('##### 📌Bivariate Analysis')
-    text_style = '<p style="font-family:sans-serif; color:Blue; font-size: 15px;">Correlation between numerical and numcerial👇'
-    st.markdown(text_style,unsafe_allow_html=True)
-    if data is not None: 
-        all_columns=n.columns                  
-        selected_num_cols =st.selectbox('Choose column on X axis:', all_columns)  
-        num_cols = st.selectbox("Choose column on Y axis:", n.columns, index = len(n.columns) - 1) 
-        if st.button('Generate scatter plot'):   
-            fig = px.scatter(df, x= selected_num_cols, y = num_cols)
-            st.plotly_chart(fig)
-
-    text_style_2 = '<p style="font-family:sans-serif; color:Blue; font-size: 15px;">Correlation between categorical and numerical👇'
-    st.markdown(text_style_2,unsafe_allow_html=True)
-    
-    if data is not None: 
-        all_columns_c=pd.DataFrame(df.loc[:,df.dtypes==np.object ]).columns                  
-        high_cardi_columns = []
-        normal_cardi_columns = []
-        for i in all_columns_c:
-            if (df[i].nunique() > df.shape[0] / 10):
-                high_cardi_columns.append(i)
-            else:
-                    normal_cardi_columns.append(i)
-
-
-        if len(normal_cardi_columns) == 0:
-            st.write('There is no categorical columns with normal cardinality in the data.')
-        else:
-            
-            model_type = st.radio('Select Visualize Type:', ('Scatter', 'Boxplot'), key = 'model_type')
-            selected_cat_cols = functions.multiselect_container('Choose columns for Target Value:', normal_cardi_columns, 'Category')
-                    
-            
-            target_cols= st.selectbox("Select Nummeric column:", n.columns, index = len(n.columns) - 1)    
-            i = 0
-            while (i < len(selected_cat_cols)):
-                if model_type == 'Boxplot':
-                    fig = px.box(df, y = target_cols, color = selected_cat_cols[i])
+    with st.expander('📌Univariate Analysis'):  
+    #Univariate
+        st.markdown("##### 📌Univariate Analysis")
+        if data is not None:
+            n=pd.DataFrame(df.loc[:,(df.dtypes==np.int64) | (df.dtypes==np.float)])
+            all_columns_n = n.columns
+            type_of_plot = st.radio("Select Type of Plot",["box","hist"])
+            if type_of_plot=="box":
+                if len(all_columns_n) == 0:
+                    st.write('There is no numerical columns in the data.')
                 else:
-                    fig = px.scatter(df, color = selected_cat_cols[i], y = target_cols)
-
-                st.plotly_chart(fig, use_container_width = True)
-                i += 1
-
-            if high_cardi_columns:
-                if len(high_cardi_columns) == 1:
-                    st.markdown('###### 🖇The following column has high cardinality, that is why its boxplot was not plotted:')
+                    selected_num_cols = functions.multiselect_container('Choose columns for Box plots:', all_columns_n, 'Box')
+                    st.markdown('Box plots')
+                    i = 0
+                    while (i < len(selected_num_cols)):
+                        c1, c2 = st.columns(2)
+                        for j in [c1, c2]:
+                            
+                            if (i >= len(selected_num_cols)):
+                                break
+                            
+                            fig = px.box(df, y= selected_num_cols[i])
+                            j.plotly_chart(fig, use_container_width = True)
+                            i += 1
+            if type_of_plot=="hist":
+                if len(all_columns_n) == 0:
+                    st.write('There is no numerical columns in the data.')
                 else:
-                    st.markdown('###### 🖇The following columns have high cardinality, that is why its boxplot was not plotted:')
-                for i in high_cardi_columns:
-                    st.write(i)
+                    selected_num_cols = functions.multiselect_container('Choose columns for Hist plots:', all_columns_n, 'Hist')
+                    st.markdown('Hist plots')
+                    i = 0
+                    while (i < len(selected_num_cols)):
+                        c1, c2 = st.columns(2)
+                        for j in [c1, c2]:
+                            
+                            if (i >= len(selected_num_cols)):
+                                break
+                            
+                            fig = px.histogram(df, x = selected_num_cols[i])
+                            j.plotly_chart(fig, use_container_width = True)
+                            i += 1
+    with st.expander('📌Bivariate Analysis'):
+    # Bivariate
+        st.markdown('##### 📌Bivariate Analysis')
+        text_style = '<p style="font-family:sans-serif; color:Blue; font-size: 15px;">➡️ Correlation between numerical and numcerial👇'
+        st.markdown(text_style,unsafe_allow_html=True)
+        if data is not None: 
+            all_columns=n.columns                  
+            selected_num_cols =st.selectbox('Choose column on X axis:', all_columns)  
+            num_cols = st.selectbox("Choose column on Y axis:", n.columns, index = len(n.columns) - 1) 
+            if st.button('Generate scatter plot'):   
+                fig = px.scatter(df, x= selected_num_cols, y = num_cols)
+                st.plotly_chart(fig)
+        
+        text_style_2 = '<p style="font-family:sans-serif; color:Blue; font-size: 15px;">➡️ Correlation between categorical and numerical👇'
+        st.markdown(text_style_2,unsafe_allow_html=True)
+        
+        if data is not None: 
+            all_columns_c=pd.DataFrame(df.loc[:,df.dtypes==np.object ]).columns                  
+            high_cardi_columns = []
+            normal_cardi_columns = []
+            for i in all_columns_c:
+                if (df[i].nunique() > df.shape[0] / 10):
+                    high_cardi_columns.append(i)
+                else:
+                        normal_cardi_columns.append(i)
+
+
+            if len(normal_cardi_columns) == 0:
+                st.write('There is no categorical columns with normal cardinality in the data.')
+            else:
                 
-                select_columns=st.multiselect("Select high_cardi_columns",high_cardi_columns)
-                st.write('<p style="font-size:120%">Do you want to plot anyway?</p>', unsafe_allow_html=True)    
-                answer = st.selectbox("", ('No', 'Yes'))
-                if answer == 'Yes':
-                    for i in select_columns:
-                        fig = px.box(df, y = target_cols, color = i)
-                        st.plotly_chart(fig, use_container_width = True)
-# multivariate
-    st.markdown('##### 📌Multi-variate Analysis')
-    if data is not None:
-        fig, ax = plt.subplots()
-        sns.heatmap(df.corr(), ax=ax)
-        st.write(fig)
+                model_type = st.radio('Select Visualize Type:', ('Scatter', 'Boxplot'), key = 'model_type')
+                selected_cat_cols = functions.multiselect_container('Choose columns for Target Value:', normal_cardi_columns, 'Category')
+                        
+                
+                target_cols= st.selectbox("Select Nummeric column:", n.columns, index = len(n.columns) - 1)    
+                i = 0
+                while (i < len(selected_cat_cols)):
+                    if model_type == 'Boxplot':
+                        fig = px.box(df, y = target_cols, color = selected_cat_cols[i])
+                    else:
+                        fig = px.scatter(df, color = selected_cat_cols[i], y = target_cols)
+
+                    st.plotly_chart(fig, use_container_width = True)
+                    i += 1
+
+                if high_cardi_columns:
+                    if len(high_cardi_columns) == 1:
+                        st.markdown('###### ▶️ The following column has high cardinality, that is why its boxplot was not plotted:')
+                    else:
+                        st.markdown('###### ▶️ The following columns have high cardinality, that is why its boxplot was not plotted:')
+                    for i in high_cardi_columns:
+                        st.write(i)
+                    
+                    select_columns=st.multiselect("Select high_cardi_columns",high_cardi_columns)
+                    st.write('<p style="font-size:100%">Do you want to plot anyway?</p>', unsafe_allow_html=True)    
+                    answer = st.selectbox("", ('No', 'Yes'))
+                    if answer == 'Yes':
+                        for i in select_columns:
+                            fig = px.box(df, y = target_cols, color = i)
+                            st.plotly_chart(fig, use_container_width = True)
+        st.markdown('###### ▶️ Scatter matrix')
+        if data is not None:
+            n_column=n.columns
+            c_column=pd.DataFrame(df.loc[:,df.dtypes==np.object ]).columns
+            target_column=st.selectbox("Select target categorical column", c_column)
+            dimension=st.multiselect("Select matrix numerical columns",n_column)
+            if st.button("Show graph"):
+                fig = px.scatter_matrix(df, dimensions=dimension, color=target_column)
+                st.plotly_chart(fig)
+    with st.expander('📌Multi-variate Analysis'):
+    # multivariate
+        st.markdown('##### 📌Multi-variate Analysis')
+        if data is not None:
+            fig, ax = plt.subplots()
+            sns.heatmap(df.corr(), ax=ax)
+            st.write(fig)
+
+
+            
+
+
+
+
+
+
 
 
         
