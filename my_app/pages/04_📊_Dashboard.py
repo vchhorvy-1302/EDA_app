@@ -161,23 +161,31 @@ if data is not None:
     lat_column=st.sidebar.selectbox('Select lat column',all_columns)
     lon_column=st.sidebar.selectbox('Select lon column',all_columns)
     colors=st.sidebar.selectbox('Select column for show color', all_columns)
-    bubble=st.sidebar.selectbox('Select column for size bubble', all_columns)
-    df_m=pd.DataFrame({'latitude':df[lat_column],'longitude':df[lon_column], 'color':df[colors],'bubble':df[bubble]})
-    mask=df_m.notnull()
-    df=df_m.where(mask).dropna()
-
-    if st.sidebar.checkbox('Add size bubble'):
-        if st.checkbox('Mapbox'):
-            px.set_mapbox_access_token('pk.eyJ1IjoiY2hob3J2eXZvdW4xMyIsImEiOiJjbDgxNHMwb2QwNTNmM3RvNDZhNnJka2tvIn0.2lWRwiJ9t-YYHV4vFQ3cGw')
-            figMap = px.scatter_mapbox(df, lat='latitude', lon='longitude',color='color', size='bubble',
-                                        color_continuous_scale=px.colors.cyclical.IceFire)
-            st.plotly_chart(figMap, use_container_width=True)
-    if st.sidebar.checkbox('No size bubble'):
-        if st.checkbox('Mapbox'):
-            px.set_mapbox_access_token('pk.eyJ1IjoiY2hob3J2eXZvdW4xMyIsImEiOiJjbDgxNHMwb2QwNTNmM3RvNDZhNnJka2tvIn0.2lWRwiJ9t-YYHV4vFQ3cGw')
-            figMap = px.scatter_mapbox(df, lat='latitude', lon='longitude',color='color',
-                                        color_continuous_scale=px.colors.cyclical.IceFire)
-            st.plotly_chart(figMap, use_container_width=True)
+    
+    c1, c2=st.columns([3,0.5])
+    if st.checkbox('Mapbox'):
+        px.set_mapbox_access_token('pk.eyJ1IjoiY2hob3J2eXZvdW4xMyIsImEiOiJjbDgxNHMwb2QwNTNmM3RvNDZhNnJka2tvIn0.2lWRwiJ9t-YYHV4vFQ3cGw') 
+        with c2:
+            plot=st.radio('Select layer bubble:', ( 'No size bubble','Add size bubble'))
+        with c1:
+            if plot=='No size bubble':
+                df_m=pd.DataFrame({'latitude':df[lat_column],'longitude':df[lon_column], 'color':df[colors]})
+                mask=df_m.notnull()
+                df=df_m.where(mask).dropna()
+                figMap = px.scatter_mapbox(df, lat='latitude', lon='longitude',color='color',
+                                            color_continuous_scale=px.colors.cyclical.IceFire)
+                st.plotly_chart(figMap, use_container_width=True)
+    
+            if plot=='Add size bubble':
+                n=pd.DataFrame(df.loc[:,(df.dtypes==np.int64) | (df.dtypes==np.float)])
+                all_columns_n = n.columns
+                bubble=st.sidebar.selectbox('Select column for size bubble', all_columns_n)
+                df_m=pd.DataFrame({'latitude':df[lat_column],'longitude':df[lon_column], 'color':df[colors],'bubble':df[bubble]})
+                mask=df_m.notnull()
+                df=df_m.where(mask).dropna()
+                figMap = px.scatter_mapbox(df, lat='latitude', lon='longitude',color='color', size='bubble',
+                                            color_continuous_scale=px.colors.cyclical.IceFire)
+                st.plotly_chart(figMap, use_container_width=True)
 	
 
 
