@@ -45,19 +45,13 @@ right: 2rem;
 """
 
 
-st.markdown(page_bg_img, unsafe_allow_html=True)
-st.title("Dashboard 📊")
-st.sidebar.markdown("Dashboard")
-
-
-
 with st.expander(""):
 	file_format = st.radio('Select file format:', ('csv', 'excel'), key='file_format')
 	data = st.file_uploader(label = '')
 
 	use_defo = st.checkbox('Use example Dataset')
 	if use_defo:
-		data = 'my_app/scrap_data_sample.csv'
+		data = 'scrap_data_sample.csv'
 
 
 	if data:
@@ -67,10 +61,13 @@ with st.expander(""):
 			df = pd.read_excel(data)
 
 
+st.markdown(page_bg_img, unsafe_allow_html=True)
+st.title("Dashboard 📊")
+st.sidebar.markdown("Dashboard")
 
+st.sidebar.markdown("### Filter Visual")
 if data is not None:
     def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
-
         df = df.copy()
 
         # Try to convert datetimes into a standard format (datetime, no timezone)
@@ -84,7 +81,7 @@ if data is not None:
             if is_datetime64_any_dtype(df[col]):
                 df[col] = df[col].dt.tz_localize(None)
 
-        modification_container = st.container()
+        modification_container = st.sidebar.container()
 
         with modification_container:
             to_filter_columns = st.multiselect("Filter dataframe on", df.columns)
@@ -92,7 +89,7 @@ if data is not None:
                 left, right = st.columns((1, 20))
                 left.write("↳")
                 # Treat columns with < 45 unique values as categorical
-                if is_categorical_dtype(df[column]) or df[column].nunique() < 30:
+                if is_categorical_dtype(df[column]) or df[column].nunique() < 20:
                     user_cat_input = right.multiselect(
                         f"Values for {column}",
                         df[column].unique(),
@@ -131,36 +128,41 @@ if data is not None:
                         df = df[df[column].str.contains(user_text_input)]
         return df
     df=filter_dataframe(df)
-    c1, c2=st.columns([1.9,2])
-    with c1:
+    with st.expander("Select Columns To Visualize"):
         all_columns=df.columns
-        st.sidebar.markdown('### ☑️Select for box plot')
-        target_cols=st.sidebar.selectbox('Select target column',all_columns)
-        cat_column=st.sidebar.selectbox('Selecct categorical column', all_columns)
+        st.markdown("#### ☑️Select Columns To Visualize Boxplot")
+        b_target_cols=st.selectbox('Select target column',all_columns)
+        b_column=st.selectbox('Selecct categorical column', all_columns)
+        st.markdown("#### ☑️Select Columns To Visualize Bar Graph")
+        bar_column=st.selectbox('select column for bar chart',all_columns)
+        st.markdown("#### ☑️Select Columns To Visualize Map")
+        lat=st.selectbox('Select latitude column',all_columns)
+        long=st.selectbox('Select longitude column',all_columns)
+        st.markdown("#### ☑️Select Columns To Visualize Mapbox")
+        b_lat_column=st.selectbox('Select lat column',all_columns)
+        b_lon_column=st.selectbox('Select lon column',all_columns)
+        b_colors=st.selectbox('Select column for show color', all_columns)
+        n=pd.DataFrame(df.loc[:,(df.dtypes==np.int64) | (df.dtypes==np.float)])
+        all_columns_n = n.columns
+    c1, c2=st.columns([1.9,2])
+    
+    with c1:
         if st.checkbox('Boxplot'):
-            fig_bo = px.box(df, y = target_cols, color = cat_column)
+            fig_bo = px.box(df, y = b_target_cols, color = b_column)
             c1.plotly_chart(fig_bo)	
     with c2:
-        st.sidebar.markdown('### ☑️Select for bar graph')
-        select_column=st.sidebar.selectbox('select column for bar chart',all_columns)
         if st.checkbox('Bar Chart'):
-            fig_ba = px.histogram(df, x = select_column, color_discrete_sequence=['indianred'])
+            fig_ba = px.histogram(df, x = bar_column, color_discrete_sequence=['indianred'])
             c2.plotly_chart(fig_ba)
 
 
-    st.sidebar.markdown('### ☑️Select columns for plot map')
-    lat=st.sidebar.selectbox('Select latitude column',all_columns)
-    long=st.sidebar.selectbox('Select longitude column',all_columns)
+    
     df_m=pd.DataFrame({'lat':df[lat],'lon':df[long]})
     mask=df_m.notnull()
     df_m=df_m.where(mask).dropna()
     if st.checkbox('Map'):
         st.map(df_m)	
 
-    st.sidebar.markdown('### ☑️Select columns for  mapbox')
-    lat_column=st.sidebar.selectbox('Select lat column',all_columns)
-    lon_column=st.sidebar.selectbox('Select lon column',all_columns)
-    colors=st.sidebar.selectbox('Select column for show color', all_columns)
     
     c1, c2=st.columns([3,0.5])
     if st.checkbox('Mapbox'):
@@ -169,7 +171,7 @@ if data is not None:
             plot=st.radio('Select layer bubble:', ( 'No size bubble','Add size bubble'))
         with c1:
             if plot=='No size bubble':
-                df_m=pd.DataFrame({'latitude':df[lat_column],'longitude':df[lon_column], 'color':df[colors]})
+                df_m=pd.DataFrame({'latitude':df[b_lat_column],'longitude':df[b_lon_column], 'color':df[b_colors]})
                 mask=df_m.notnull()
                 df=df_m.where(mask).dropna()
                 figMap = px.scatter_mapbox(df, lat='latitude', lon='longitude',color='color',
@@ -177,15 +179,30 @@ if data is not None:
                 st.plotly_chart(figMap, use_container_width=True)
     
             if plot=='Add size bubble':
-                n=pd.DataFrame(df.loc[:,(df.dtypes==np.int64) | (df.dtypes==np.float)])
-                all_columns_n = n.columns
-                bubble=st.sidebar.selectbox('Select column for size bubble', all_columns_n)
-                df_m=pd.DataFrame({'latitude':df[lat_column],'longitude':df[lon_column], 'color':df[colors],'bubble':df[bubble]})
+                with c2:
+                    bubble=st.selectbox('Select column for size bubble', all_columns_n)
+                df_m=pd.DataFrame({'latitude':df[b_lat_column],'longitude':df[b_lon_column], 'color':df[b_colors],'bubble':df[bubble]})
                 mask=df_m.notnull()
                 df=df_m.where(mask).dropna()
                 figMap = px.scatter_mapbox(df, lat='latitude', lon='longitude',color='color', size='bubble',
                                             color_continuous_scale=px.colors.cyclical.IceFire)
                 st.plotly_chart(figMap, use_container_width=True)
+            
+            
+       
+	
+
+
+    
+    
+	    
+	
+    
+    
+
+
+
+
 	
 
 
