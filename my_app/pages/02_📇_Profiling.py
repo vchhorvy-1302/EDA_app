@@ -68,7 +68,7 @@ with st.expander(""):
 
 
 st.subheader('Dataset Profile:')
-with st.expander():  
+with st.expander("Profiling"):  
     st.markdown("##### View Table 📑")
     if data is not None:
         def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
