@@ -115,8 +115,8 @@ if data is not None:
     def convert_df(df):
         return df.to_csv().encode('utf-8')
 
-    csv = convert_df(df)
-    csv = csv.loc[:, ~csv.columns.str.contains('^Unnamed')]
+    df= convert_df(df)
+    csv = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     st.download_button(
         label="Download cleaned data as CSV",
         data=csv,
