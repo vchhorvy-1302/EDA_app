@@ -53,7 +53,7 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 image = Image.open('my_app/logo.png')
 st.sidebar.image(image,width=100)
 st.title("Home Page 🏠")
-st.header('Z1 Data Exploration Method')
+st.header('Exploratory Data Analysis')
 with st.expander(""):
 	file_format = st.radio('Select file format:', ('csv', 'excel'), key='file_format')
 	data = st.file_uploader(label = '')
