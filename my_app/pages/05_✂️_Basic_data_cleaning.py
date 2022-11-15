@@ -116,7 +116,7 @@ if data is not None:
         return df.to_csv().encode('utf-8')
 
     csv = convert_df(df)
-
+    csv = csv.loc[:, ~csv.columns.str.contains('^Unnamed')]
     st.download_button(
         label="Download cleaned data as CSV",
         data=csv,
