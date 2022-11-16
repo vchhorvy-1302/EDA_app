@@ -70,7 +70,7 @@ with st.expander(""):
 			df = pd.read_excel(data)
  
 st.subheader('Overview')
-st.markdown('''This is the project of data exploration based on our company method implement. Every first step in any data-intensive
+st.markdown('''This is the project to make every data science and data analyst can do their job properly and quicker. Every first step in any data-intensive
 			project is understanding the available data.To this end, data scientists or data engineer spend a significant
 			part of their time carrying out data quality assessments and data exploration. In spite of this being a crucial
 			step, it usually requires repeating a series of menial tasks before the data scientist gains an understanding of
