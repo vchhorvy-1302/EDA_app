@@ -457,19 +457,19 @@ if data is not None:
             have_or_not=["contain land area","not contain land area"]
             if st.checkbox("contain land area"):
                 df=df.loc[df[select_a].notnull()]
-            if st.checkbox("not contain land area"):
+            else st.checkbox("not contain land area"):
                 df=df.loc[df[select_a].isnull()]
         if contain=="Building_area":
             have_o_not=["contain building area","not contain building area"]
             if st.checkbox("contain building area"):
                 df=df.loc[df[select_ba].notnull()]
-            if st.checkbox("not contain building area"):
+            else st.checkbox("not contain building area"):
                 df=df.loc[df[select_ba].isnull()]
         if contain=="Stories":
             have_o_not=["contain stories","not contain stories"]
             if st.checkbox("contain stories"):
                 df=df.loc[df[select_st].notnull()]
-            if st.checkbox("not contain stories"):
+            else st.checkbox("not contain stories"):
                 df=df.loc[df[select_st].isnull()]
         
         
