@@ -450,7 +450,7 @@ if data is not None:
         df=filter_dataframe(df)
 
         c1, c2=st.columns([3,3])
-       with c2:
+       	with c2:
             st.markdown("Check which type of property that have:")
             contain=st.selectbox("Select field",["Land_area","Building_area","Stories"])
         if contain=="Land_area":
