@@ -63,7 +63,7 @@ data = st.file_uploader(label = '')
 
 use_defo = st.checkbox('Use example Dataset')
 if use_defo:
-    data = 'my_app/scrap_data_sample.csv'
+    data = 'sample_dataset.csv'
 
 
 if data:
