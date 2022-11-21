@@ -56,7 +56,7 @@ with st.expander(""):
 
 	use_defo = st.checkbox('Use example Dataset')
 	if use_defo:
-		data = 'my_app/scrap_data_sample.csv'
+		data = 'sample_datatset.csv'
 
 
 	if data:
@@ -146,7 +146,9 @@ with st.expander("Profiling"):
             st.write(f'<p style="font-size:120%,color:Blue;">Dataset contains {n} rows and {m} columns.</p>', unsafe_allow_html=True) 
             return 
         c1, c2, c3 = st.columns([3, 0.5, 0.5])
-        c1.dataframe(functions.df_info(df))
+        dataTypeSeries = pd.DataFrame(df.dtypes).reset_index()
+        dataTypeSeries.rename(columns={"index":"column",0:"Datatype"}, inplace=True)
+        c1.dataframe(dataTypeSeries)
 
 
         st.markdown('##### 🔍Null Value Information:')
