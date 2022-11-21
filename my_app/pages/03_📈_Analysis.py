@@ -454,19 +454,19 @@ if data is not None:
             st.markdown("Check which type of property that have:")
             contain=st.selectbox("Select field",["Land_area","Building_area","Stories"])
         if contain=="Land_area":
-            have_or_not=st.radio("Check if contain land_area or not",["contain land area","not contain land area"])
+            have_or_not=st.checkbox("Check if contain land_area or not",["contain land area","not contain land area"])
             if have_or_not=="contain land area":
                 df=df.loc[df[select_a].notnull()]
             if have_or_not=="not contain land area":
                 df=df.loc[df[select_a].isnull()]
         if contain=="Building_area":
-            have_o_not=st.radio("Check if contain building area or not",["contain building area","not contain building area"])
+            have_o_not=st.checkbox("Check if contain building area or not",["contain building area","not contain building area"])
             if have_o_not=="contain building area":
                 df=df.loc[df[select_ba].notnull()]
             if have_o_not=="not contain building area":
                 df=df.loc[df[select_ba].isnull()]
         if contain=="Stories":
-            have_o_not=st.radio("Check if contain stories or not",["contain stories","not contain stories"])
+            have_o_not=st.checkbox("Check if contain stories or not",["contain stories","not contain stories"])
             if have_o_not=="contain stories":
                 df=df.loc[df[select_st].notnull()]
             if have_o_not=="not contain stories":
