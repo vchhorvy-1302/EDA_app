@@ -474,7 +474,7 @@ if data is not None:
         
         
         with c1:
-            st.markdown("Select structure level property")
+            st.markdown("Select property type columns to remove error")
             select_cols=st.multiselect("Select record_type, property_category,current_use",df.columns)
         st.dataframe(df.groupby(select_cols)['id'].count().reset_index())
 
