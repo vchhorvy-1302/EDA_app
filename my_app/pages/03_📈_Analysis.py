@@ -450,7 +450,7 @@ if data is not None:
         df=filter_dataframe(df)
 
         c1, c2=st.columns([3,3])
-        with c2:
+       with c2:
             st.markdown("Check which type of property that have:")
             contain=st.selectbox("Select field",["Land_area","Building_area","Stories"])
         if contain=="Land_area":
@@ -458,21 +458,21 @@ if data is not None:
             if st.checkbox("contain land area"):
                 df=df.loc[df[select_a].notnull()]
             else:
-		st.checkbox("not contain land area")
+                st.checkbox("not contain land area")
                 df=df.loc[df[select_a].isnull()]
         if contain=="Building_area":
             have_o_not=["contain building area","not contain building area"]
             if st.checkbox("contain building area"):
                 df=df.loc[df[select_ba].notnull()]
             else :
-		st.checkbox("not contain building area")
+                st.checkbox("not contain building area")
                 df=df.loc[df[select_ba].isnull()]
         if contain=="Stories":
             have_o_not=["contain stories","not contain stories"]
             if st.checkbox("contain stories"):
                 df=df.loc[df[select_st].notnull()]
             else :
-		st.checkbox("not contain stories")
+                st.checkbox("not contain stories")
                 df=df.loc[df[select_st].isnull()]
         
         
