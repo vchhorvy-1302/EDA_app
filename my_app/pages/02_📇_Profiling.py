@@ -254,7 +254,7 @@ if selected=="Date":
         d=df.select_dtypes(include=['datetime64'])
         d_columns=df.select_dtypes(include=['datetime64']).columns
         if len(d_columns) == 0:
-            st.write('There is no numerical columns in the data.')
+            st.write('There is no date type columns in the data.')
         else:
             st.write(d.head())
 
@@ -289,7 +289,7 @@ if selected=="Boolean":
         b=pd.DataFrame(df.select_dtypes(include=['bool']))
         b_columns=pd.DataFrame(df.select_dtypes(include=['bool'])).columns
         if len(b_columns) == 0:
-            st.write('There is no numerical columns in the data.')
+            st.write('There is no boolean type columns in the data.')
         else:
             st.write(b.head())
             if st.checkbox("Show Boolean Shape"):
