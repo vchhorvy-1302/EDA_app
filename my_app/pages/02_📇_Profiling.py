@@ -71,7 +71,8 @@ with st.expander(""):
 st.subheader('Dataset Profile:')
 with st.expander("Profiling"):  
     st.markdown("##### View Table 📑")
-#     if data is not None:
+     if data is not None:
+		AgGrid(df)
 #         def filter_dataframe(df: pd.DataFrame) -> pd.DataFrame:
 #             modify = st.checkbox("Add filters")
 
@@ -138,7 +139,7 @@ with st.expander("Profiling"):
 #                             df = df[df[column].str.contains(user_text_input)]
 #             return df
 #         st._legacy_dataframe(filter_dataframe(df))
-	AgGrid(df)
+	
 
     # Select to show shape
         st.markdown("##### 📌Info:")
