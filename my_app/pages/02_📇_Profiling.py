@@ -138,7 +138,7 @@ with st.expander("Profiling"):
 #                             df = df[df[column].str.contains(user_text_input)]
 #             return df
 #         st._legacy_dataframe(filter_dataframe(df))
-	  AgGrid(df)
+	AgGrid(df)
 
     # Select to show shape
         st.markdown("##### 📌Info:")
