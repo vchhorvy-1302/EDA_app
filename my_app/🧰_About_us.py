@@ -37,7 +37,6 @@ right: 2rem;
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-st.image(image, width=120)
 st.sidebar.markdown("Contents")
 st.sidebar.success("Select a demo above.")
 st.write("# Welcome to Z1 Data Exploration Web Aplication 👋")
