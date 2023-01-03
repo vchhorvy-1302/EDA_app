@@ -7,9 +7,6 @@ from PIL import Image
 from streamlit_option_menu import option_menu
 
 
-st.set_page_config(page_title="Z1App/EDA/About_us",page_icon=img,layout="wide")
-
-
 #Theme
 df = px.data.iris()
 @st.experimental_memo
