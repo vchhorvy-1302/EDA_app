@@ -5,8 +5,6 @@ import plotly.express as px
 import streamlit as st
 from PIL import Image
 
-img=Image.open("my_app/logo.png")
-st.set_page_config(page_title="Z1App/EDA/Home",page_icon=img)
 
 	
 
@@ -50,8 +48,7 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 	#End Theme
 
 
-image = Image.open('my_app/logo.png')
-st.sidebar.image(image,width=100)
+
 st.title("Home Page 🏠")
 st.header('Exploratory Data Analysis: EDA')
 with st.expander(""):
