@@ -28,7 +28,6 @@ background-repeat: no-repeat;
 background-attachment: local;
 }}
 [data-testid="stSidebar"] > div:first-child {{
-background-image: url("data:image/png;base64,{}");
 background-position: center; 
 background-repeat: no-repeat;
 background-attachment: fixed;
