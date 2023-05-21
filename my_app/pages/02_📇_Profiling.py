@@ -159,9 +159,9 @@ with st.expander("Profiling"):
             functions.space(2)
             c1.dataframe(functions.df_isnull(df), width=1500)
         
-        st.markdown('##### 📍Outlier Analysis')   
-        c1, c2, c3 = st.columns([4, 0.5, 0.5])
-        c1.dataframe(functions.number_of_outliers(df)) 
+#        st.markdown('##### 📍Outlier Analysis')   
+#        c1, c2, c3 = st.columns([4, 0.5, 0.5])
+#        c1.dataframe(functions.number_of_outliers(df)) 
         st.markdown('##### Duplicate Rows')
         if st.checkbox('Duplicate Value'):
             st.write(df[df.duplicated(keep=False)])
