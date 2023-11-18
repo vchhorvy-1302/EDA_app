@@ -22,7 +22,8 @@ from functions import functions
 
 #Theme
 df = px.data.iris()
-@st.cache_data
+#@st.cache_data
+@st.experimental_memo
 def get_img_as_base64(file):
     with open(file, "rb") as f:
         data = f.read()
@@ -62,7 +63,7 @@ with st.expander(""):
 
 	use_defo = st.checkbox('Use example Dataset')
 	if use_defo:
-		data = 'sample_dataset.csv'
+		data = 'my_app/sample_dataset.csv'
 
 
 	if data:
