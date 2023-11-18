@@ -35,7 +35,7 @@ def df_isnull(df):
 
 def number_of_outliers(df):
     
-    df = df.select_dtypes("number")#pd.DataFrame(df.loc[:,(df.dtypes==np.int64) | (df.dtypes==np.float)])
+    df = df.select_dtypes("number") #pd.DataFrame(df.loc[:,(df.dtypes==np.int64) | (df.dtypes==np.float)])
     
     Q1 = df.quantile(0.25)
     Q3 = df.quantile(0.75)
