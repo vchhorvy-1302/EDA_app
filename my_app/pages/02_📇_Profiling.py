@@ -252,14 +252,14 @@ if selected=="Date":
     if data is not None:
         st.markdown("##### 1️⃣ View header")
         d=df.select_dtypes(include=['datetime64'])
-        d_columns=df.select_dtypes(include=['datetime64']).columns
+        d_columns=d.columns
         if len(d_columns) == 0:
             st.write('There is no date type columns in the data.')
         else:
             st.write(d.head())
 
-            if st.checkbox("Show Date Shape"):
-                st.write(d.shape)
+        if st.checkbox("Show Date Shape"):
+            st.write(d.shape)
 
             st.markdown("##### 2️⃣ List Columns")
             st.write(d.columns.tolist())
@@ -269,15 +269,21 @@ if selected=="Date":
             de=d.describe(include='all').T
             de['null_percentage']=d.isnull().sum()*100/len(d)
             st.write(de)
-     
-        if st.checkbox('Empty Columns'):
+        
+        if d is not None:
+            de=d.describe(include='all').T
+            st.checkbox('Empty Columns')
             e=pd.DataFrame(de[de["null_percentage"]==100]).T
             st.write(e.columns.tolist())
-
-        if st.checkbox('Full Columns'):
+        else:
+            st.markdown('No date columns')
+        if d is not None:
+            de=d.describe(include='all').T
+            st.checkbox('Full Columns')
             f=pd.DataFrame(de[de["null_percentage"]==0]).T
             st.write(f.columns.tolist())
-       
+        else:
+            st.markdown('No date columns')
 
 
 # Boolean Data
@@ -292,17 +298,17 @@ if selected=="Boolean":
             st.write('There is no boolean type columns in the data.')
         else:
             st.write(b.head())
-            if st.checkbox("Show Boolean Shape"):
-                st.write(b.shape)
+        if st.checkbox("Show Boolean Shape"):
+            st.write(b.shape)
 
             st.markdown("##### 2️⃣ List Columns")
             st.write(b.columns.tolist())
 
-            st.markdown("##### 3️⃣ Description")
+        st.markdown("##### 3️⃣ Description")
             
-            de=b.describe(include='all').T
-            de['null_percentage']=d.isnull().sum()*100/len(b)
-            st.write(de)
+        de=b.describe(include='all').T
+        de['null_percentage']=b.isnull().sum()*100/len(b)
+        st.write(de)
     
         if st.checkbox('Empty Columns'):
             e=pd.DataFrame(de[de["null_percentage"]==100]).T
@@ -316,6 +322,9 @@ if selected=="Boolean":
             selected_columns_names = st.selectbox("Select Categorical Columns To Plot",all_columns_names)
             st.write(b[selected_columns_names].unique())
 
+
+
+    
 
 
     
