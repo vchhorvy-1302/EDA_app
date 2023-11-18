@@ -9,7 +9,7 @@ from streamlit_option_menu import option_menu
 
 #Theme
 df = px.data.iris()
-@st.experimental_memo
+@st.cache_data
 def get_img_as_base64(file):
     with open(file, "rb") as f:
         data = f.read()
@@ -58,7 +58,7 @@ data = st.file_uploader(label = '')
 
 use_defo = st.checkbox('Use example Dataset')
 if use_defo:
-    data = 'my_app/sample_dataset.csv'
+    data = 'sample_dataset.csv'
 
 
 if data:
