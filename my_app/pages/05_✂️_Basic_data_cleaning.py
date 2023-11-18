@@ -11,7 +11,7 @@ from PIL import Image
 from streamlit_option_menu import option_menu
 
 df = px.data.iris()
-@st.experimental_memo
+@st.cache_data
 def get_img_as_base64(file):
     with open(file, "rb") as f:
         data = f.read()
@@ -46,7 +46,7 @@ with st.expander(""):
 
 	use_defo = st.checkbox('Use example Dataset')
 	if use_defo:
-		data = 'my_app/sample_dataset.csv'
+		data = 'sample_dataset.csv'
 
 
 	if data:
@@ -111,7 +111,7 @@ if data is not None:
     
         
     
-    @st.cache
+    @st.cache_data
     def convert_df(df):
         return df.to_csv(index=False).encode('utf-8')
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
